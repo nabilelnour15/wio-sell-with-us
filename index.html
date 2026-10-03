@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sell With Us | Wear It Once</title>
+  <meta name="description" content="Submit your pieces to Wear It Once. Pre-loved fashion, inspected and honestly graded.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f3ef;
+      --ink: #191919;
+      --muted: rgba(25, 25, 25, 0.62);
+      --line: rgba(25, 25, 25, 0.18);
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .eyebrow, .label, legend span, .brandline {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Header */
+    .masthead {
+      border-bottom: 1px solid var(--line);
+      padding: 1.25rem 1rem;
+      text-align: center;
+    }
+    .wordmark {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      line-height: 1;
+      text-decoration: none;
+    }
+    .brandline { display: block; margin-top: 0.5rem; color: var(--muted); }
+
+    main {
+      max-width: 44rem;
+      margin: 0 auto;
+      padding: 3.5rem 1rem 4rem;
+    }
+
+    .hero { text-align: center; margin-bottom: 3.5rem; }
+    .hero .eyebrow { color: var(--muted); }
+    h1 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(2.5rem, 8vw, 3.75rem);
+      line-height: 1.05;
+      margin: 0.75rem 0 1.25rem;
+    }
+    .lede { font-size: 1.125rem; max-width: 34rem; margin: 0 auto; color: var(--muted); }
+
+    form { display: flex; flex-direction: column; gap: 3rem; }
+
+    fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+
+    legend {
+      width: 100%;
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      line-height: 1.2;
+      padding: 0 0 0.6rem;
+      border-bottom: 1px solid var(--ink);
+    }
+    legend span { vertical-align: middle; margin-right: 0.75rem; color: var(--muted); }
+
+    .row { display: grid; grid-template-columns: 1fr; column-gap: 2rem; }
+    @media (min-width: 640px) { .row { grid-template-columns: 1fr 1fr; } }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1.5rem 0 0.6rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .field:focus-within { border-bottom-color: var(--ink); }
+    .field.choices { border-bottom: 0; }
+    .field[hidden] { display: none; }
+    .label em { font-style: normal; color: var(--muted); margin-left: 0.25rem; }
+
+    input[type="text"], input[type="tel"], input[type="email"], input[type="number"], select, textarea {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      color: var(--ink);
+      font: inherit;
+      font-size: 1.0625rem;
+      padding: 0.25rem 0;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    textarea { resize: vertical; }
+    select {
+      cursor: pointer;
+      background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+      background-position: calc(100% - 10px) 55%, calc(100% - 5px) 55%;
+      background-size: 5px 5px;
+      background-repeat: no-repeat;
+    }
+    ::placeholder { color: rgba(25, 25, 25, 0.38); }
+
+    .hint { font-size: 0.9375rem; color: var(--muted); margin: 0.9rem 0 0; }
+
+    /* Choice pills and option cards */
+    .pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .pill, .option { position: relative; cursor: pointer; }
+    .pill input, .option input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+    .pill span {
+      display: inline-block;
+      padding: 0.75rem 1.6rem;
+      border: 1px solid var(--ink);
+      transition: background-color .15s, color .15s;
+    }
+    .option span {
+      display: block;
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--line);
+      transition: background-color .15s, color .15s, border-color .15s;
+    }
+    .option strong { font-weight: 600; display: block; }
+    .option small { font-size: 0.9375rem; color: var(--muted); }
+    .pill input:checked + span, .option input:checked + span {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+    .option input:checked + span small { color: rgba(244, 243, 239, 0.75); }
+    .pill input:focus-visible + span, .option input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
+    
+    .agree { display: flex; gap: 0.875rem; align-items: flex-start; font-size: 0.9375rem; cursor: pointer; }
+    .agree input { flex: none; width: 1.125rem; height: 1.125rem; margin-top: 0.2rem; accent-color: var(--ink); }
+
+    button {
+      width: 100%;
+      min-height: 3.5rem;
+      border: 1px solid var(--ink);
+      border-radius: 0;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color .15s, color .15s;
+    }
+    button:hover { background: transparent; color: var(--ink); }
+    button:disabled { opacity: 0.5; cursor: wait; }
+
+    .status { margin: 0.9rem 0 0; text-align: center; font-size: 0.9375rem; }
+    .status:empty { display: none; }
+    .status.error { color: #a8433c; }
+
+    .success { display: none; text-align: center; padding: 3rem 1.5rem; border: 1px solid var(--ink); }
+    .success h2 { font-family: var(--serif); font-weight: 400; font-size: 2.25rem; line-height: 1.15; margin: 0.6rem 0 1rem; }
+    .success p { margin: 0 auto; max-width: 30rem; color: var(--muted); }
+    .done .success { display: block; }
+    .done form, .done .hero { display: none; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 1rem 2.5rem;
+      text-align: center;
+      font-size: 0.9375rem;
+      color: var(--muted);
+    }
+    footer .slogan { font-family: var(--serif); font-size: 1.375rem; color: var(--ink); margin: 0 0 0.5rem; }
+    footer p { margin: 0.25rem 0; }
+  </style>
+<body>
+  <header class="masthead">
+    <a class="wordmark" href="https://wearitonce-eg.com">Wear It Once</a>
+    <span class="brandline">brands · new · used</span>
+  </header>
+
+  <main id="page">
+    <section class="hero">
+      <span class="eyebrow">Sell With Us</span>
+      <h1>Submit your pieces</h1>
+      <p class="lede">
+        Tell us what you would like to sell. Our team will message you on
+        WhatsApp to agree how your pieces reach us, then every piece is inspected and honestly graded.
+      </p>
+    </section>
+
+    <form id="intake" novalidate>
+      <fieldset>
+        <legend><span>01</span>About you</legend>
+
+        <label class="field">
+          <span class="label">Full name</span>
+          <input type="text" name="name" autocomplete="name" required maxlength="200">
+        </label>
+
+        <div class="row">
+          <label class="field">
+            <span class="label">WhatsApp number</span>
+            <input type="tel" name="whatsapp" inputmode="tel" autocomplete="tel" placeholder="01012345678"
+                   pattern="(\+?20|0)?1[0125][0-9]{8}" required>
+          </label>
+          <label class="field">
+            <span class="label">Email <em>optional</em></span>
+            <input type="email" name="email" autocomplete="email">
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span>02</span>Your pieces</legend>
+
+        <div class="row">
+          <label class="field">
+            <span class="label">How many pieces?</span>
+            <input type="number" name="pieces" inputmode="numeric" min="1" step="1" required>
+          </label>
+          <label class="field">
+            <span class="label">Total estimated price (EGP)</span>
+            <input type="number" name="price" inputmode="numeric" min="1" step="any" required>
+          </label>
+        </div>
+        <p class="hint">Your best guess for all the pieces together. We agree the final price with you before anything goes live.</p>
+
+        <div class="field choices">
+          <span class="label" id="type-label">Type of pieces</span>
+          <div class="pills" role="radiogroup" aria-labelledby="type-label" data-list="types"></div>
+        </div>
+
+        <label class="field">
+          <span class="label">Brands and a short description <em>optional</em></span>
+          <textarea name="brands" rows="3" maxlength="2000" placeholder="e.g. Zara blazer, Mango midi dress, Maje skirt"></textarea>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend><span>03</span>Getting your pieces to us</legend>
+        <label class="field">
+          <span class="label">Region</span>
+          <select name="region" required>
+            <option value="" selected disabled>Choose your region</option>
+          </select>
+        </label>
+
+        <label class="field" id="other-region" hidden>
+          <span class="label">Which governorate?</span>
+          <input type="text" name="otherRegion" maxlength="100" placeholder="e.g. Luxor">
+        </label>
+
+        <div class="field choices">
+          <span class="label" id="route-label">How will you get your pieces to us?</span>
+          <div class="options" role="radiogroup" aria-labelledby="route-label" data-list="routes"></div>
+        </div>
+      </fieldset>
+
+      <label class="agree">
+        <input type="checkbox" name="agree" required>
+        <span id="agree-text"></span>
+      </label>
+
+      <div>
+        <button type="submit" id="submit">Submit your pieces</button>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <section class="success" aria-live="polite">
+      <span class="eyebrow">Received</span>
+      <h2>Thank you, we have your details</h2>
+      <p>Our team will message you on WhatsApp to agree how your pieces reach us.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p class="slogan">Wear It Once, deserve a second chance</p>
+    <p>WhatsApp +20 127 973 3666</p>
+    <p><a href="https://wearitonce-eg.com">wearitonce-eg.com</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      // The Apps Script web app that saves the answers (doPost in Code.gs).
+      var ENDPOINT = 'https://script.google.com/macros/s/AKfycbybfOYQCrgJHFME2zEbMAdWFU8IYSFO_q2B93JZ6xDv8CAlGnyHgf59wToESbrvJBGiGQ/exec';
+
+      // Copies of the lists at the top of Code.gs. The server rejects any value it does
+      // not know, so if you change a list there, change it here too.
+      var TYPES = ['Used', 'New', 'Mixed'];
+      var REGIONS = ['Cairo governorate', 'Giza', '6th of October / Sheikh Zayed', 'Alexandria', 'Another governorate'];
+      var OTHER = 'Another governorate';
+      var ROUTES = [
+        { value: 'Drop off in 5th Settlement, New Cairo (free)', title: 'Drop off', detail: 'In 5th Settlement, New Cairo. Free' },
+        { value: 'Courier pickup outside Cairo (seller covers the courier fee)', title: 'Courier pickup', detail: 'Anywhere in Egypt. You cover the courier fee, we confirm it with you before collection' },
+        { value: 'Not sure yet', title: 'Not sure yet', detail: 'We will discuss it with you' }
+      ];
+      var AGREE = 'I understand Wear It Once inspects every piece, may decline any piece, and that Sell With Us or a Cash Offer is agreed with me after inspection.';
+
+      var form = document.getElementById('intake');
+      var f = form.elements;
+      var page = document.getElementById('page');
+      var button = document.getElementById('submit');
+      var status = document.getElementById('status');
+      var other = document.getElementById('other-region');
+
+      function el(tag, className, text) {
+        var node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text) node.textContent = text;
+        return node;
+      }
+
+      function radio(name, value) {
+        var input = el('input');
+        input.type = 'radio';
+        input.name = name;
+        input.value = value;
+        input.required = true;
+        return input;
+      }
+
+      var pills = form.querySelector('[data-list="types"]');
+      TYPES.forEach(function (t) {
+        var label = el('label', 'pill');
+        label.appendChild(radio('type', t));
+        label.appendChild(el('span', '', t));
+        pills.appendChild(label);
+      });
+
+      REGIONS.forEach(function (r) {
+        var option = el('option', '', r);
+        option.value = r;
+        f.region.appendChild(option);
+      });
+
+      var options = form.querySelector('[data-list="routes"]');
+      ROUTES.forEach(function (r) {
+        var label = el('label', 'option');
+        var span = el('span');
+        span.appendChild(el('strong', '', r.title));
+        span.appendChild(el('small', '', r.detail));
+        label.appendChild(radio('route', r.value));
+        label.appendChild(span);
+        options.appendChild(label);
+      });
+
+      document.getElementById('agree-text').textContent = AGREE;
+
+      // "Another governorate" asks them to write it.
+      f.region.addEventListener('change', function () {
+        var isOther = f.region.value === OTHER;
+        other.hidden = !isOther;
+        f.otherRegion.required = isOther;
+        if (!isOther) f.otherRegion.value = '';
+        else f.otherRegion.focus();
+      });
+
+      function say(text, isError) {
+        status.textContent = text;
+        status.className = isError ? 'status error' : 'status';
+      }
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        f.whatsapp.value = f.whatsapp.value.replace(/[\s-]/g, '');
+        if (!form.reportValidity()) return;
+
+        var data = {
+          name: f.name.value,
+          whatsapp: f.whatsapp.value,
+          email: f.email.value,
+          pieces: f.pieces.value,
+          price: f.price.value,
+          type: (form.querySelector('[name="type"]:checked') || {}).value,
+          brands: f.brands.value,
+          region: f.region.value,
+          otherRegion: f.otherRegion.value,
+          route: (form.querySelector('[name="route"]:checked') || {}).value,
+          agree: f.agree.checked
+        };
+
+        button.disabled = true;
+        say('Sending…');
+
+        // text/plain keeps this a "simple" request, with no CORS preflight (Apps Script
+        // cannot answer one). credentials: 'omit' sends no Google cookies, so Google never
+        // rewrites the request to a signed-in /u/1/ address.
+        fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(data),
+          credentials: 'omit',
+          redirect: 'follow'
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (result) {
+            // Only the server's own validation messages are shown; anything else gets the generic one.
+            if (!result || !result.ok) throw { fromServer: true, message: result && result.error };
+            page.classList.add('done');
+            window.scrollTo(0, 0);
+          })
+          .catch(function (error) {
+            button.disabled = false;
+            say((error && error.fromServer && error.message) || 'Something went wrong. Please try again, or message us on WhatsApp.', true);
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
